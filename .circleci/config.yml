@@ -40,7 +40,7 @@ jobs:
       #     name: build components
       #     command: yarn icon && yarn build:es && yarn build:css
       - run:
-          name: build site
+          name: Build site
           command: npm run build:site
       - run:
           name: netlify install
