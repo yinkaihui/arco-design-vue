@@ -25,19 +25,19 @@ jobs:
       - run: node --version & yarn --version
       - run: npm i lerna -g
       - run: yarn
-      # - restore_cache:
-      #     name: Restore Yarn Package Cache
-      #     keys:
-      #       - yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "site/yarn.lock" }}
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: npm run init
           command: npm run init
-      # - save_cache:
-      #     name: Save Yarn Package Cache
-      #     key: yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "site/yarn.lock" }}
-      #     paths:
-      #       - ~/.cache/yarn
-      - run: ls
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      # - run: ls
       # - run:
       #     name: build components
       #     command: yarn icon && yarn build:es && yarn build:css
@@ -49,7 +49,7 @@ jobs:
           command: npm i netlify-cli -D
       - run:
           name: netlify deploy
-          command: netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID  --dir=packages/arco-vue-docs/dist --alias=pr-preview-${{ CIRCLE_PR_NUMBER }}
+          command: netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID  --dir=packages/arco-vue-docs/dist --alias=pr-preview-${CIRCLE_PR_NUMBER}
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
