@@ -46,7 +46,7 @@ jobs:
           command: NODE_OPTIONS=--max-old-space-size=8192 npm run build:site
       - run:
           name: netlify install
-          command: npm i netlify-cli -D
+          command: npm i netlify-cli -g
       - run:
           name: netlify deploy
           command: netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID  --dir=packages/arco-vue-docs/dist --alias=pr-preview-${CIRCLE_PR_NUMBER}
